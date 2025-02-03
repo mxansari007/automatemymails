@@ -18,7 +18,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Dependencies
-        run: pip install pandas smtplib email
+        run: pip install pandas 
 
       - name: Run Email Script
         env:
