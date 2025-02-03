@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
 # Load recruiter details from CSV
-csv_file = "temp.csv"
+csv_file = os.getenv("MAIL_CSV")
 df = pd.read_csv(csv_file)
 
 # Fetch credentials securely from GitHub Secrets
