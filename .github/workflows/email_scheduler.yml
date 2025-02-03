@@ -1,6 +1,7 @@
 name: Send Emails Daily
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '30 4 * * *'  # Runs at 10 AM IST (4:30 AM UTC)
 
