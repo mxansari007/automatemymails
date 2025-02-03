@@ -8,7 +8,7 @@ from email.mime.application import MIMEApplication
 
 # Fetch environment variables
 CLOUDINARY_CSV_URL = os.getenv("MAIL_CSV")  # ✅ Cloudinary CSV URL
-CLOUDINARY_RESUME_URL = os.getenv("Resume_Path")  # ✅ Cloudinary Resume URL
+CLOUDINARY_RESUME_URL = os.getenv("RESUME_PATH")  # ✅ Cloudinary Resume URL
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
