@@ -18,7 +18,7 @@ SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 
 # Path to your resume file
-RESUME_PATH = "Mohammad_Maaz_Resume_NIT_KKR.pdf"
+RESUME_PATH = os.getenv("Resume_Path")
 
 def send_email(to_email, recruiter_name, recruiter_company):
     """Sends a cold email to the recruiter with the resume attached."""
