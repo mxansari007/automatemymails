@@ -39,21 +39,25 @@ def send_email(to_email, recruiter_name, recruiter_company):
     subject = f"Application for Software Developer Role - Mohammad Maaz Ansari"
 
     body = f"""
-    <html>
+   <html>
     <body>
     <p>Dear <b>{recruiter_name}</b>,</p>
-
-    <p>I hope you're doing well. My name is <b>Mohammad Maaz Ansari</b>, and I am currently pursuing my MCA from NIT Kurukshetra.<br/> 
-    I came across opportunities at <b>{recruiter_company}</b> and would love to explore potential roles that align with my skills.</p>
-
-    <p>I have experience in frontend, backend development, and Cloud Computing, with expertise in <b>React.js, Express.js, MySQL, Docker, AWS</b>. 
-    My projects include:</p>
-
+    
+    <p>I hope you're doing well. My name is <b>Mohammad Maaz Ansari</b>, and I am currently pursuing my MCA from <b>NIT Kurukshetra</b> with a CGPA of 8.43. I recently came across opportunities at <b>{recruiter_company}</b> and would love to explore potential roles that align with my skills and experience.</p>
+    
+    <p>With a strong foundation in <b>full-stack web development</b> and <b>cloud computing</b>, I have hands-on experience in <b>React.js, Express.js, Next.js, MySQL, MongoDB, Docker, and AWS</b>. My passion lies in building scalable and efficient applications, and I have demonstrated this through my projects and internship experiences.</p>
+    
+    <p>Here are some of my key projects:</p>
+    
     <ul>
-        <li><b><a href="https://nitkkrhostels.live">NIT Hostel Management System</a></b>: Simplifies hostel management.</li>
-        <li><b><a href="https://smartreport.vercel.app/">Smart Report</a></b>: Generates medical reports in a visually appealing format.</li>
+        <li><b><a href="https://nitkkrhostels.live">NIT Hostel Management System</a></b>: A comprehensive web-based application simplifying hostel administration with automated room assignments, student data uploads, and digital notice distribution.</li>
+        <li><b><a href="https://smartreport.vercel.app/">Smart Report</a></b>: A platform that generates structured and visually appealing medical reports, integrating OTP-based authentication and PDF generation.</li>
+        <li><b>Hiring System UI Redesign (Internship at Codehop Interfusion)</b>: Revamped the frontend of a hiring platform, improving engagement by 4% and reducing processing time by 10%.</li>
+        <li><b>TinkerQuest Hackathon Project (Top 20 out of 500+ teams)</b>: Built a patient report generation system using React.js and PDF generation tools.</li>
     </ul>
-
+    
+    <p>Beyond technical skills, I have actively contributed to my department, delivering lectures on <b>Git & GitHub</b> and <b>Web Development</b> under the Digital India Workshop.</p>
+    
     <p>Here are my details:</p>
     <ul>
         <li><b>Email:</b> mxansari007@gmail.com</li>
@@ -61,9 +65,9 @@ def send_email(to_email, recruiter_name, recruiter_company):
         <li><b>GitHub:</b> <a href="https://github.com/mxansari007">GitHub Profile</a></li>
         <li><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/maaz-ansari-a6b6b0137/">LinkedIn Profile</a></li>
     </ul>
-
-    <p>Looking forward to your response.</p>
-
+    
+    <p>I would love to connect and discuss how my skills align with <b>{recruiter_company}</b>'s requirements. Looking forward to your response!</p>
+    
     <p>Best regards, <br><b>Mohammad Maaz Ansari</b></p>
     </body>
     </html>
