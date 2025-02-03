@@ -1,14 +1,13 @@
 import os
 import smtplib
 import pandas as pd
-import requests  # ✅ To fetch CSV and Resume from Cloudinary
+import requests  # ✅ Only needed for CSV download
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
 # Fetch environment variables
 CLOUDINARY_CSV_URL = os.getenv("MAIL_CSV")  # ✅ Cloudinary CSV URL
-CLOUDINARY_RESUME_URL = os.getenv("RESUME_PATH")  # ✅ Cloudinary Resume URL
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
 
@@ -19,26 +18,17 @@ try:
     response.raise_for_status()
     with open(csv_file, "wb") as file:
         file.write(response.content)
-    print("CSV file downloaded successfully from Cloudinary!")
+    print("✅ CSV file downloaded successfully from Cloudinary!")
 except requests.exceptions.RequestException as e:
-    print(f"Error downloading CSV file: {e}")
+    print(f"❌ Error downloading CSV file: {e}")
     exit(1)  # Exit the script if the file cannot be downloaded
 
 # ✅ Step 2: Read CSV file
 df = pd.read_csv(csv_file)
-print("CSV file loaded successfully!")
+print("✅ CSV file loaded successfully!")
 
-# ✅ Step 3: Download Resume from Cloudinary
-resume_file = "Mohammad_Maaz_NIT_KKR_2025.pdf"
-try:
-    response = requests.get(CLOUDINARY_RESUME_URL)
-    response.raise_for_status()
-    with open(resume_file, "wb") as file:
-        file.write(response.content)
-    print("Resume downloaded successfully from Cloudinary!")
-except requests.exceptions.RequestException as e:
-    print(f"Error downloading Resume: {e}")
-    exit(1)  # Exit the script if the file cannot be downloaded
+# ✅ Step 3: Use local resume file instead of downloading
+resume_file = "Mohammad_Maaz_NIT_KKR_2025.pdf"  # Resume is now stored in the repo
 
 # Email SMTP setup
 SMTP_SERVER = "smtp.gmail.com"
@@ -85,14 +75,14 @@ def send_email(to_email, recruiter_name, recruiter_company):
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "html"))
 
-    # Attach resume
+    # Attach resume (Local File)
     try:
         with open(resume_file, "rb") as resume:
             attach_part = MIMEApplication(resume.read(), _subtype="pdf")
             attach_part.add_header("Content-Disposition", "attachment", filename="Mohammad_Maaz_NIT_KKR_2025.pdf")
             msg.attach(attach_part)
     except Exception as e:
-        print(f"Failed to attach resume: {e}")
+        print(f"❌ Failed to attach resume: {e}")
 
     # Send the email
     try:
@@ -101,9 +91,9 @@ def send_email(to_email, recruiter_name, recruiter_company):
         server.login(SENDER_EMAIL, SENDER_PASSWORD)
         server.sendmail(SENDER_EMAIL, to_email, msg.as_string())
         server.quit()
-        print(f"Email sent to {to_email}")
+        print(f"✅ Email sent to {to_email}")
     except Exception as e:
-        print(f"Failed to send email to {to_email}: {e}")
+        print(f"❌ Failed to send email to {to_email}: {e}")
 
 # Iterate through CSV and send emails
 for _, row in df.iterrows():
