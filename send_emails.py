@@ -28,7 +28,7 @@ df = pd.read_csv(csv_file)
 print("✅ CSV file loaded successfully!")
 
 # ✅ Step 3: Use local resume file instead of downloading
-resume_file = "Mohammad_Maaz_NIT_KKR_2025.pdf"  # Resume is now stored in the repo
+resume_file = "Mohammad_Maaz_Resume_NIT_KKR.pdf"  # Resume is now stored in the repo
 
 # Email SMTP setup
 SMTP_SERVER = "smtp.gmail.com"
