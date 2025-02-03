@@ -1,24 +1,48 @@
 import os
 import smtplib
 import pandas as pd
+import requests  # ✅ To fetch CSV and Resume from Cloudinary
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 
-# Load recruiter details from CSV
-csv_file = os.getenv("MAIL_CSV")
-df = pd.read_csv(csv_file)
-
-# Fetch credentials securely from GitHub Secrets
+# Fetch environment variables
+CLOUDINARY_CSV_URL = os.getenv("MAIL_CSV")  # ✅ Cloudinary CSV URL
+CLOUDINARY_RESUME_URL = os.getenv("Resume_Path")  # ✅ Cloudinary Resume URL
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_PASSWORD = os.getenv("SENDER_PASSWORD")
+
+# ✅ Step 1: Download CSV file from Cloudinary
+csv_file = "temp.csv"  # Temporary file to store downloaded CSV
+try:
+    response = requests.get(CLOUDINARY_CSV_URL)
+    response.raise_for_status()
+    with open(csv_file, "wb") as file:
+        file.write(response.content)
+    print("CSV file downloaded successfully from Cloudinary!")
+except requests.exceptions.RequestException as e:
+    print(f"Error downloading CSV file: {e}")
+    exit(1)  # Exit the script if the file cannot be downloaded
+
+# ✅ Step 2: Read CSV file
+df = pd.read_csv(csv_file)
+print("CSV file loaded successfully!")
+
+# ✅ Step 3: Download Resume from Cloudinary
+resume_file = "Mohammad_Maaz_NIT_KKR_2025.pdf"
+try:
+    response = requests.get(CLOUDINARY_RESUME_URL)
+    response.raise_for_status()
+    with open(resume_file, "wb") as file:
+        file.write(response.content)
+    print("Resume downloaded successfully from Cloudinary!")
+except requests.exceptions.RequestException as e:
+    print(f"Error downloading Resume: {e}")
+    exit(1)  # Exit the script if the file cannot be downloaded
 
 # Email SMTP setup
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-
-# Path to your resume file
-RESUME_PATH = os.getenv("Resume_Path")
 
 def send_email(to_email, recruiter_name, recruiter_company):
     """Sends a cold email to the recruiter with the resume attached."""
@@ -63,8 +87,8 @@ def send_email(to_email, recruiter_name, recruiter_company):
 
     # Attach resume
     try:
-        with open(RESUME_PATH, "rb") as resume_file:
-            attach_part = MIMEApplication(resume_file.read(), _subtype="pdf")
+        with open(resume_file, "rb") as resume:
+            attach_part = MIMEApplication(resume.read(), _subtype="pdf")
             attach_part.add_header("Content-Disposition", "attachment", filename="Mohammad_Maaz_NIT_KKR_2025.pdf")
             msg.attach(attach_part)
     except Exception as e:
